@@ -92,3 +92,43 @@ class Solution:
 
 # Step3
 特筆すべきことがなかったため、略
+
+# rewrite
+## listを使う
+```python
+class Solution:
+    def isValid(self, s:str) -> bool:
+        stack = list()
+        close_to_open = {")": "(", "]": "[", "}": "{"}
+        for char in s:
+            if char in close_to_open.values():
+                stack.append(char)
+                continue
+            if not stack:
+                return False
+            pop_char = stack.pop()
+            if pop_char != close_to_open[char]:
+                return False
+        return not stack
+```
+
+## 素直に書き直し
+```python
+import collections
+
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = collections.deque()
+        close_to_open = {")": "(", "]": "[", "}": "{"}
+        for char in s:
+            if char in close_to_open.values():
+                stack.append(char)
+                continue
+            if not stack:
+                return False
+            pop_char = stack.pop()
+            if pop_char != close_to_open[char]:
+                return False
+        return not stack
+```
